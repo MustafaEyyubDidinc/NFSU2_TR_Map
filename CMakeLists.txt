@@ -1,0 +1,14 @@
+# The following lines of boilerplate have to be in your project's
+# CMakeLists in this exact order for cmake to work correctly
+cmake_minimum_required(VERSION 3.5)
+
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+
+set(EXTRA_COMPONENT_DIRS
+    ./components/bsp_extra
+    ./components/CANBus_Driver
+    ./components/gps_locator
+    )
+
+add_compile_options(-Wno-format)
+project(lvgl_demo_v9)
