@@ -61,6 +61,11 @@ void (*can_message_handler)(twai_message_t *message) = NULL;
 
 #define MIN_MOVE_DISTANCE 2.0 // distance in meters to trigger icon rotation
 
+// Define to simulate a location (Istanbul, Turkey) for testing without CAN bus data
+#define SIMULATE_LOCATION 1
+#define SIM_LAT 41.0082
+#define SIM_LON 28.9784
+
 float current_latitude        = 0.0;
 float current_longitude       = 0.0;
 float new_latitude            = 0.0;
@@ -288,6 +293,14 @@ extern "C" void app_main(void) {
         printf("Failed to initialize map\n");
         return;
     }
+
+#ifdef SIMULATE_LOCATION
+    // Initialize with Istanbul coordinates for testing
+    new_latitude = SIM_LAT;
+    new_longitude = SIM_LON;
+    data_ready = true; // Trigger the timer update
+    printf("Simulating location: Lat %f, Lon %f\n", new_latitude, new_longitude);
+#endif
 
     make_ui();
 
